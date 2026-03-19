@@ -1,0 +1,44 @@
+services:
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: orderapi-sqlserver
+    environment:
+      SA_PASSWORD: "OrderApi@2026"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P 'OrderApi@2026' -Q 'SELECT 1' -No"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 30s
+
+  api:
+    build:
+      context: .
+      dockerfile: OrderManagement.API/Dockerfile
+    container_name: orderapi
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      ASPNETCORE_URLS: "http://+:8080"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=OrderManagementDb;User Id=sa;Password=OrderApi@2026;TrustServerCertificate=True;"
+      JwtSettings__Secret: "minha-chave-super-secreta-minimo-32-caracteres-aqui"
+      JwtSettings__Issuer: "OrderManagement.API"
+      JwtSettings__Audience: "OrderManagement.Client"
+      JwtSettings__ExpiresInHours: "8"
+    ports:
+      - "8080:8080"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - api_logs:/app/logs
+
+volumes:
+  sqlserver_data:
+  api_logs:

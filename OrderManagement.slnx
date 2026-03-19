@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Itens de Solução/">
+    <File Path=".dockerignore" />
+    <File Path="docker-compose.yml" />
+  </Folder>
+  <Project Path="OrderManagement.API/OrderManagement.API.csproj" Id="94be3bd1-c8e4-4fb9-a027-add9be3b544f" />
+  <Project Path="OrderManagement.Application/OrderManagement.Application.csproj" Id="de3964a8-ec0b-4121-9a68-f8ea08c1c922" />
+  <Project Path="OrderManagement.Domain/OrderManagement.Domain.csproj" Id="c245cf0c-7534-43b1-9455-28a022379f72" />
+  <Project Path="OrderManagement.Infrastructure/OrderManagement.Infrastructure.csproj" Id="7f1ffdae-90e7-4ece-bf6e-d71f2be1a720" />
+  <Project Path="OrderManagement.Tests/OrderManagement.Tests.csproj" Id="cae51608-598e-4a20-8075-7f29a36b1591" />
+</Solution>

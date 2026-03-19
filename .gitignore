@@ -1,0 +1,16 @@
+## .gitignore para .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+logs/
+*.log
+appsettings.Development.json
+
+## Docker
+docker-compose.override.yml
+
+## Banco local
+*.mdf
+*.ldf
